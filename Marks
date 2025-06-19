@@ -1,0 +1,55 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# i) Read the data from the table
+df = pd.read_csv('marks.csv')
+
+# ii) Retrieve only first and last 5 rows
+print("First 5 rows:")
+print(df.head())
+
+print("\nLast 5 rows:")
+print(df.tail())
+
+# iii) Purpose of describe() function
+# describe() gives summary statistics: count, mean, std, min, 25%, 50%, 75%, max
+
+print("\nSummary statistics:")
+print(df.describe())
+
+# iv) Select only 3rd to 6th row (index 2 to 5)
+print("\nRows 3rd to 6th:")
+print(df.iloc[2:6])
+
+# v) Select only column M3 greater than 84 marks
+print("\nRows with M3 > 84:")
+print(df[df['M3'] > 84])
+
+# vi) Filter rows with missing values
+print("\nRows with missing values:")
+print(df[df.isnull().any(axis=1)])
+
+# vii) Remove the missing value rows
+df_clean = df.dropna()
+print("\nData after removing rows with missing values:")
+print(df_clean)
+
+# viii) Sort M1 column in descending order
+df_sorted = df.sort_values(by='M1', ascending=False)
+print("\nData sorted by M1 descending:")
+print(df_sorted)
+
+# ix) Plot the table (bar plot for marks)
+df.plot(kind='bar', x='NAME', y=['M1','M2','M3'], figsize=(10,6))
+plt.title('Marks of Students')
+plt.ylabel('Marks')
+plt.xlabel('Students')
+plt.legend(title='Subjects')
+plt.tight_layout()
+plt.show()
+
+# x) Output of: marks.ix[3:6, [‘m2’,’m3’] ] 
+# (ix is deprecated, use loc/iloc instead)
+# Equivalent:
+print("\nEquivalent of marks.ix[3:6, ['M2','M3']] using iloc:")
+print(df.iloc[3:7][['M2','M3']])
